@@ -13,6 +13,8 @@
 using namespace alice;
 
 TEST(math_functions, math_functions) {
+  Timer timer;
+
   float* A = new float[M * K];
   float* X = new float[N * K];
   float* Y = new float[M * N];
@@ -26,12 +28,19 @@ TEST(math_functions, math_functions) {
   cudaMalloc(&dX, N * K * sizeof(float));
   cudaMalloc(&dY, M * N * sizeof(float));
 
+  std::cout << timer.elapsed() << "\n";
+  timer.reset();
+
   cudaMemcpy(dA, A, M * K * sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(dX, X, N * K * sizeof(float), cudaMemcpyHostToDevice);
 
-  {
+  for (int i = 0; i < 3; ++i) {
+    Timer t;
+
     caffe_gpu_gemm(
         CblasNoTrans, CblasNoTrans, M, N, K, float(1), dA, dX, float(0), dY);
+
+    std::cout << t.elapsed() << "\n";
   }
 
   cudaMemcpy(Y, dY, M * N * sizeof(float), cudaMemcpyDeviceToHost);

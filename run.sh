@@ -7,4 +7,4 @@ rm -rf *
 cmake -DCMAKE_BUILD_TYPE=Release \
     .. && make -j
 
-./test
+./cudalice_test

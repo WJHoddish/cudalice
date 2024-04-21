@@ -9,7 +9,7 @@
 
 #include <cmath>
 
-#include "cudalice/common.h"
+#include "caffe/common.h"
 
 namespace alice {
 

@@ -2,7 +2,7 @@
 // Author: Jiaheng Wang
 // Date: 2024-04-20
 
-#include "common.h"
+#include "caffe/common.h"
 
 namespace alice {
 
@@ -20,6 +20,10 @@ Caffe::Caffe()
 Caffe::~Caffe() {
   if (cublas_handle_) CUBLAS_CHECK(cublasDestroy(cublas_handle_));
 }
+
+}  // namespace alice
+
+namespace caffe {
 
 const char* cublasGetErrorString(cublasStatus_t error) {
   switch (error) {
@@ -51,4 +55,4 @@ const char* cublasGetErrorString(cublasStatus_t error) {
   return "Unknown cublas status";
 }
 
-}  // namespace alice
+}  // namespace caffe
